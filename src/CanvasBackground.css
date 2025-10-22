@@ -1,8 +1,0 @@
-.background-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0; /* behind everything */
-  pointer-events: all; /* allows drawing input */
-  background: transparent;
-}

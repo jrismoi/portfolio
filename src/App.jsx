@@ -1,9 +1,10 @@
+// src/App.jsx
 import { motion, useScroll, useTransform } from "framer-motion";
-import ProjectCard from "./ProjectCard";
-import Contact from "./Contact";
 import Navbar from "./Navbar";
+import ProjectCard from "./ProjectCard";
 import Skills from "./Skills";
 import Resume from "./Resume";
+import Contact from "./Contact";
 import "./App.css";
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
   const name = "Miguel Orellana";
   const letters = Array.from(name);
 
-  // Precompute random transforms outside the render loop
+  // Precompute random transforms for each letter
   const letterTransforms = letters.map(() => {
     const randomX = Math.random() * 200 - 100;
     const randomY = Math.random() * 200 - 100;
@@ -19,7 +20,17 @@ function App() {
     return { randomX, randomY, randomRotate };
   });
 
-  // Example projects
+  const xTransforms = letterTransforms.map((t) =>
+    useTransform(scrollYProgress, [0, 0.4], [0, t.randomX])
+  );
+  const yTransforms = letterTransforms.map((t) =>
+    useTransform(scrollYProgress, [0, 0.4], [0, t.randomY])
+  );
+  const rotateTransforms = letterTransforms.map((t) =>
+    useTransform(scrollYProgress, [0, 0.4], [0, t.randomRotate])
+  );
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
   const projects = [
     {
       videoSrc: "/videos/project1.mp4",
@@ -35,20 +46,9 @@ function App() {
     },
   ];
 
-  // Motion transforms (defined once)
-  const xTransforms = letterTransforms.map((t) =>
-    useTransform(scrollYProgress, [0, 0.4], [0, t.randomX])
-  );
-  const yTransforms = letterTransforms.map((t) =>
-    useTransform(scrollYProgress, [0, 0.4], [0, t.randomY])
-  );
-  const rotateTransforms = letterTransforms.map((t) =>
-    useTransform(scrollYProgress, [0, 0.4], [0, t.randomRotate])
-  );
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
-
   return (
     <div className="container">
+      {/* Navbar */}
       <Navbar />
 
       {/* Intro Section */}
