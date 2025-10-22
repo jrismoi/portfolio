@@ -34,16 +34,22 @@ function App() {
 
   const projects = [
     {
-      videoSrc: "/videos/project1.mp4",
+      videoSrc: "/videos/game-vid.mp4",
       title: "8-bit Music Game",
       description:
-        "An interactive game teaching absolute pitch using 8-bit sounds.",
+        "This is an 8-bit game created to test if absolute pitch is able to be \"trained.\" The game played pitches and players needed to memorize where in the screen that specific pitch came out of. Incorporated JS and live servers to track points and leaderboard.",
     },
     {
       videoSrc: "/videos/project2.mp4",
-      title: "Portfolio Demo",
+      title: "Robust Gesture iOS App",
       description:
-        "This portfolio built with React and Framer Motion, featuring animations and interactive projects.",
+        "This iPhone app was designed to compare the robustness of two different gestures, shake and tilt. A timer was put to check how many accidental shakes and tilts there were in a set amount of time which outputted CSV file with accelerometer and gyroscopic data. Coded using Swift and SwiftUI.",
+    },
+    {
+        videoSrc: "/videos/calculator.mp4",
+        title: "Calculator App",
+        description:
+            "Simple calculator app for desktop and mobile devices."
     },
   ];
 
