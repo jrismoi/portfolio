@@ -9,27 +9,71 @@ const BackgroundCanvas = () => {
   const [brushSize, setBrushSize] = useState(3);
   const [showControls, setShowControls] = useState(false);
 
+  // Resize canvas to cover the full document (scrollable) area and account for DPR
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Document (page) dimensions in CSS pixels
+      const pageWidth = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+      const pageHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+
+      // Device Pixel Ratio for crisp drawing
+      const dpr = window.devicePixelRatio || 1;
+
+      // Set CSS size (so layout & positioning use these CSS pixels)
+      canvas.style.width = `${pageWidth}px`;
+      canvas.style.height = `${pageHeight}px`;
+
+      // Set actual pixel buffer size (scaled by DPR)
+      canvas.width = Math.floor(pageWidth * dpr);
+      canvas.height = Math.floor(pageHeight * dpr);
+
+      // Reset transform and scale so drawing commands use CSS pixels
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Fill with translucent background (optional)
+      ctx.clearRect(0, 0, pageWidth, pageHeight);
       ctx.fillStyle = 'rgba(255, 245, 211, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, pageWidth, pageHeight);
     };
+
+    // Initial size
     resizeCanvas();
+
+    // Update on resize/orientation change (and when content might change)
     window.addEventListener('resize', resizeCanvas);
-    return () => window.removeEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', resizeCanvas);
+
+    // If content dynamically changes height after load, you might also want:
+    // - a MutationObserver on document.body to call resizeCanvas, or
+    // - call resizeCanvas manually where content changes.
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('orientationchange', resizeCanvas);
+    };
   }, []);
+
+  // Helper: coordinates relative to the full page (CSS pixels)
+  const getCoordinates = (e) => {
+    const isTouch = !!e.touches;
+    const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+
+    const x = (clientX || 0) + window.scrollX;
+    const y = (clientY || 0) + window.scrollY;
+    return { x, y };
+  };
 
   const startDrawing = (e) => {
     if (!canvasRef.current || !paintingEnabled) return;
+    // Prevent page drag while drawing
+    e.preventDefault();
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+    const { x, y } = getCoordinates(e);
     ctx.beginPath();
     ctx.moveTo(x, y);
     setIsDrawing(true);
@@ -37,12 +81,15 @@ const BackgroundCanvas = () => {
 
   const draw = (e) => {
     if (!isDrawing || !canvasRef.current) return;
+    e.preventDefault();
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+    const { x, y } = getCoordinates(e);
+
     ctx.lineTo(x, y);
     ctx.strokeStyle = brushColor;
+
+    // account for DPR: ctx is already scaled via setTransform, so lineWidth should be in CSS pixels
     ctx.lineWidth = brushSize;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -51,9 +98,10 @@ const BackgroundCanvas = () => {
 
   const stopDrawing = () => {
     if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    ctx.closePath();
+    const ctx = canvasRef.current.getContext('2d');
+    try {
+      ctx.closePath();
+    } catch (err) {}
     setIsDrawing(false);
   };
 
@@ -61,9 +109,20 @@ const BackgroundCanvas = () => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+
+    // Clear using CSS-pixel dimensions (because we used ctx.setTransform(dpr...))
+    const pageWidth = parseInt(canvas.style.width || window.innerWidth, 10);
+    const pageHeight = parseInt(canvas.style.height || window.innerHeight, 10);
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // temporarily reset transform
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // restore transform to DPR mapping
+    const dpr = window.devicePixelRatio || 1;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Fill subtle background
     ctx.fillStyle = 'rgba(255, 245, 211, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, pageWidth, pageHeight);
   };
 
   const changeBrushColor = (color) => setBrushColor(color);
@@ -84,11 +143,10 @@ const BackgroundCanvas = () => {
         onTouchEnd={stopDrawing}
       />
 
-
       <div className={`drawing-container ${showControls ? 'expanded' : 'collapsed'}`}>
         {showControls ? (
           <div className="drawing-controls">
-            <button 
+            <button
               className="toggle-controls"
               onClick={() => setShowControls(false)}
             >
@@ -96,7 +154,16 @@ const BackgroundCanvas = () => {
             </button>
 
             <div className="color-palette">
-              {['#ffb300', '#000000', '#ffffff', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'].map(color => (
+              {[
+                '#ffb300',
+                '#000000',
+                '#ffffff',
+                '#ff6b6b',
+                '#4ecdc4',
+                '#45b7d1',
+                '#96ceb4',
+                '#ffeaa7',
+              ].map((color) => (
                 <button
                   key={color}
                   className={`color-swatch ${brushColor === color ? 'active' : ''}`}
