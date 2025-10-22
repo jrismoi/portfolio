@@ -12,6 +12,9 @@ function Skills() {
     "SQL",
     "UI/UX Design",
     "Git",
+    "Swift",
+    "C",
+    "SML", 
   ];
 
   return (
