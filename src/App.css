@@ -75,6 +75,7 @@ a, button {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: #ffb300;
+  text-align: center;
 }
 
 .about p {
@@ -94,6 +95,7 @@ a, button {
   font-size: 2.5rem;
   color: #ffb300;
   margin-bottom: 2rem;
+  text-align: center; /* ensures header text is centered */
 }
 
 .project-grid {
