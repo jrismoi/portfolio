@@ -28,9 +28,10 @@
   height: 300px;
   opacity: 0.8;
   pointer-events: none;
+  transition: transform 0.05s ease; /* Very short transition for snappy effect */
 }
 
-/* Position each star in the four corners with different rotations */
+/* Frame 1 - Original positions with different rotations */
 .funky-star.top-left {
   top: 5%;
   left: 5%;
@@ -53,6 +54,23 @@
   bottom: 5%;
   right: 5%;
   transform: rotate(5deg);
+}
+
+/* Frame 2 - Slightly different rotations */
+.funky-star.top-left.frame-2 {
+  transform: rotate(45deg); /* +10 degrees from original */
+}
+
+.funky-star.top-right.frame-2 {
+  transform: rotate(-40deg); /* -10 degrees from original */
+}
+
+.funky-star.bottom-left.frame-2 {
+  transform: rotate(-45deg); /* +10 degrees from original */
+}
+
+.funky-star.bottom-right.frame-2 {
+  transform: rotate(35deg); /* +10 degrees from original */
 }
 
 .drawing-container {

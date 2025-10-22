@@ -8,6 +8,16 @@ const BackgroundCanvas = () => {
   const [brushColor, setBrushColor] = useState('#ffb300');
   const [brushSize, setBrushSize] = useState(3);
   const [showControls, setShowControls] = useState(false);
+  const [starFrame, setStarFrame] = useState(0);
+
+  // Toggle star frames with snappy animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStarFrame(prev => prev === 0 ? 1 : 0);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Resize canvas to cover the full document (scrollable) area and account for DPR
   useEffect(() => {
@@ -148,22 +158,22 @@ const BackgroundCanvas = () => {
         <img 
           src="/images/funkystar.png" 
           alt="Funky Star"
-          className="funky-star top-left"
+          className={`funky-star top-left ${starFrame === 1 ? 'frame-2' : ''}`}
         />
         <img 
           src="/images/funkystar.png" 
           alt="Funky Star"
-          className="funky-star top-right"
+          className={`funky-star top-right ${starFrame === 1 ? 'frame-2' : ''}`}
         />
         <img 
           src="/images/funkystar.png" 
           alt="Funky Star"
-          className="funky-star bottom-left"
+          className={`funky-star bottom-left ${starFrame === 1 ? 'frame-2' : ''}`}
         />
         <img 
           src="/images/funkystar.png" 
           alt="Funky Star"
-          className="funky-star bottom-right"
+          className={`funky-star bottom-right ${starFrame === 1 ? 'frame-2' : ''}`}
         />
       </div>
 
