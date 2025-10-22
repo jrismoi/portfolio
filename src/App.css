@@ -145,3 +145,21 @@ a, button {
 .resume-btn:hover {
   box-shadow: 0 0 10px #ffb300;
 }
+
+/* Apply custom pointer to all interactive or hoverable elements */
+button,
+a,
+[role="button"],
+[onclick],
+input[type="button"],
+input[type="submit"],
+video:hover,
+.clickable {
+  cursor: url('/images/pointer.png') 16 0, pointer !important;
+}
+
+/* Ensure custom cursor applies inside Skills section */
+.skills,
+.skills * {
+  cursor: url('/images/cursor.png') 16 0, auto !important;
+}

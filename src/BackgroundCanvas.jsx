@@ -74,6 +74,7 @@ const BackgroundCanvas = () => {
       <canvas
         ref={canvasRef}
         className="background-canvas"
+        style={{ pointerEvents: paintingEnabled ? 'auto' : 'none' }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
@@ -82,6 +83,7 @@ const BackgroundCanvas = () => {
         onTouchMove={draw}
         onTouchEnd={stopDrawing}
       />
+
 
       <div className={`drawing-container ${showControls ? 'expanded' : 'collapsed'}`}>
         {showControls ? (
@@ -120,7 +122,6 @@ const BackgroundCanvas = () => {
             className="show-controls-btn"
             onClick={() => {
               setShowControls(true);
-              setPaintingEnabled(true);
             }}
           >
             Wanna draw?
