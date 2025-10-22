@@ -1,0 +1,158 @@
+/* Reset and base styles */
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace; /* Robotic, modern look */
+  background: #fff5d3; /* light cream background */
+  color: #000000; /* black text */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: url('/images/cursor.png') 16 0, auto;
+}
+
+a, button {
+  cursor: url('/images/pointer.png') 16 0, pointer; /* hotspot (16,0) */
+}
+
+.container {
+  min-height: 200vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Intro Section */
+.intro {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+/* Intro lines */
+.intro-line {
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.2;
+  margin: 0.2em 0;
+}
+
+.white-text {
+  color: #000; /* make intro text black instead of white */
+}
+
+.green-text {
+  color: #000; /* change name color to black for uniformity */
+}
+
+.space {
+  width: 0.5em;
+}
+
+.scroll-indicator {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  color: #000;
+  opacity: 0.7;
+}
+
+/* About Section */
+.about {
+  width: 80vw;
+  max-width: 900px;
+  padding: 4rem 2rem;
+  text-align: left;
+  color: #000;
+}
+
+.about h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #ffb300; /* subtle yellow accent */
+}
+
+.about p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #333; /* slightly darker text for readability */
+}
+
+/* Projects Section */
+.projects {
+  width: 90vw;
+  max-width: 1200px;
+  padding: 4rem 2rem;
+}
+
+.projects h2 {
+  font-size: 2.5rem;
+  color: #ffb300;
+  margin-bottom: 2rem;
+}
+
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* Skills Section */
+.skills h2,
+.resume h2,
+.contact h2 {
+  color: #ffb300; /* consistent accent color */
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 248, 225, 0.85); /* semi-transparent cream */
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.navbar a {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #ffb300; /* hover accent */
+}
+
+/* Resume Button */
+.resume-btn {
+  background-color: #000;
+  color: #fff8e1;
+}
+
+.resume-btn:hover {
+  box-shadow: 0 0 10px #ffb300;
+}
+
+/* ===== Canvas Drawing Layer ===== */
+.drawing-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none; /* Prevent blocking buttons/links */
+}
+
+.container > *:not(.drawing-canvas) {
+  position: relative;
+  z-index: 1;
+}

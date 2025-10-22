@@ -1,0 +1,29 @@
+.skills {
+  width: 80vw;
+  max-width: 1000px;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #f5f5f5;
+}
+
+.skills h2 {
+  font-size: 2.5rem;
+  color: #61dafb;
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.skill-badge {
+  background: #333;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: default;
+}

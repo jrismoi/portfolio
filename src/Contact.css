@@ -1,0 +1,32 @@
+.contact {
+  width: 80vw;
+  max-width: 900px;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #000; /* black text for high contrast */
+}
+
+.contact h2 {
+  font-size: 2.5rem;
+  color: #ffb300; /* yellow accent for header */
+  margin-bottom: 1.5rem;
+}
+
+.contact p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin: 0.5rem 0;
+  color: #000; /* ensure black text is readable */
+}
+
+.contact a {
+  color: #000;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.contact a:hover {
+  color: #ffb300; /* accent color on hover */
+  text-shadow: 0 0 5px #ffb300;
+}
