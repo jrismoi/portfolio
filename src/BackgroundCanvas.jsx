@@ -143,6 +143,30 @@ const BackgroundCanvas = () => {
         onTouchEnd={stopDrawing}
       />
 
+      {/* Stars added directly to BackgroundCanvas */}
+      <div className="stars-container">
+        <img 
+          src="/images/funkystar.png" 
+          alt="Funky Star"
+          className="funky-star top-left"
+        />
+        <img 
+          src="/images/funkystar.png" 
+          alt="Funky Star"
+          className="funky-star top-right"
+        />
+        <img 
+          src="/images/funkystar.png" 
+          alt="Funky Star"
+          className="funky-star bottom-left"
+        />
+        <img 
+          src="/images/funkystar.png" 
+          alt="Funky Star"
+          className="funky-star bottom-right"
+        />
+      </div>
+
       <div className={`drawing-container ${showControls ? 'expanded' : 'collapsed'}`}>
         {showControls ? (
           <div className="drawing-controls">

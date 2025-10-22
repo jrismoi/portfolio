@@ -10,6 +10,51 @@
   pointer-events: none; /* needed for painting */
 }
 
+/* Stars Container - changed from fixed to absolute */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Above canvas but below content */
+  pointer-events: none;
+}
+
+/* Funky Star Background Styles */
+.funky-star {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Position each star in the four corners with different rotations */
+.funky-star.top-left {
+  top: 5%;
+  left: 5%;
+  transform: rotate(15deg);
+}
+
+.funky-star.top-right {
+  top: 5%;
+  right: 5%;
+  transform: rotate(-10deg);
+}
+
+.funky-star.bottom-left {
+  bottom: 5%;
+  left: 5%;
+  transform: rotate(-25deg);
+}
+
+.funky-star.bottom-right {
+  bottom: 5%;
+  right: 5%;
+  transform: rotate(5deg);
+}
+
 .drawing-container {
   position: fixed;
   bottom: 20px;
@@ -160,6 +205,7 @@
   background: #ffa000;
 }
 
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .drawing-container {
     bottom: 10px;
@@ -181,5 +227,57 @@
     height: 45px;
     font-size: 0.9rem;
     padding: 0 0.8rem;
+  }
+
+  .funky-star {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .funky-star.top-left {
+    top: 3%;
+    left: 3%;
+  }
+  
+  .funky-star.top-right {
+    top: 3%;
+    right: 3%;
+  }
+  
+  .funky-star.bottom-left {
+    bottom: 3%;
+    left: 3%;
+  }
+  
+  .funky-star.bottom-right {
+    bottom: 3%;
+    right: 3%;
+  }
+}
+
+@media (max-width: 480px) {
+  .funky-star {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .funky-star.top-left {
+    top: 2%;
+    left: 2%;
+  }
+  
+  .funky-star.top-right {
+    top: 2%;
+    right: 2%;
+  }
+  
+  .funky-star.bottom-left {
+    bottom: 2%;
+    left: 2%;
+  }
+  
+  .funky-star.bottom-right {
+    bottom: 2%;
+    right: 2%;
   }
 }
