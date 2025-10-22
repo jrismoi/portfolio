@@ -5,6 +5,7 @@ import ProjectCard from "./ProjectCard";
 import Skills from "./Skills";
 import Resume from "./Resume";
 import Contact from "./Contact";
+import BackgroundCanvas from "./BackgroundCanvas";
 import "./App.css";
 
 function App() {
@@ -48,10 +49,13 @@ function App() {
 
   return (
     <div className="container">
+      {/* Drawing Canvas Background - placed first but with proper z-index */}
+      <BackgroundCanvas />
+
       {/* Navbar */}
       <Navbar />
 
-      {/* Intro Section */}
+      {/* Rest of your content */}
       <section className="intro" id="intro">
         <h1 className="intro-line white-text">Hello, my name is</h1>
         <h1 className="intro-line green-text">
