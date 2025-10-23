@@ -31,9 +31,9 @@ function ProjectCard({ videoSrc, title, description }) {
         {expanded && (
           <motion.p
             className="project-description"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+            animate={{ height: "auto", opacity: 1, marginTop: "0.5rem" }}
+            exit={{ height: 0, opacity: 0, marginTop: 0 }}
             transition={{ duration: 0.4 }}
           >
             {description}
