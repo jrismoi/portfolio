@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import "./ProjectCard.css";
 
 function ProjectCard({ videoSrc, title, description }) {
@@ -23,18 +23,22 @@ function ProjectCard({ videoSrc, title, description }) {
         playsInline
         className="project-video"
       ></video>
-      <div className="project-title" onClick={() => setExpanded(!expanded)}>
-        {title} <span className="arrow">{expanded ? "⌃" : "⌄"}</span>
+      
+      {/* Clicking expands permanently */}
+      <div className="project-title" onClick={() => setExpanded(true)}>
+        {title} 
+        {!expanded && <span className="arrow">⌄</span>}
       </div>
 
+      {/* Smooth animation for description */}
       <AnimatePresence>
         {expanded && (
           <motion.p
             className="project-description"
-            initial={{ height: 0, opacity: 0, marginTop: 0 }}
-            animate={{ height: "auto", opacity: 1, marginTop: "0.5rem" }}
-            exit={{ height: 0, opacity: 0, marginTop: 0 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+            animate={{ opacity: 1, height: "auto", marginTop: "0.5rem" }}
+            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {description}
           </motion.p>

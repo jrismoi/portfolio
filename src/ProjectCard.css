@@ -1,10 +1,14 @@
 .project-card {
   width: 300px;
-  margin: 2rem;
+  margin: 0; /* Remove margin since grid gap handles spacing */
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  background: #81685b;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .project-video {
@@ -24,13 +28,18 @@
 .project-title {
   margin-top: 0.5rem;
   font-size: 1.2rem;
-  color: #61dafb;
+  color: #ffffff;
   text-align: center;
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
+  transition: color 0.3s ease;
+}
+
+.project-title:hover {
+  color: #ffb300; /* Optional: Add hover color change */
 }
 
 .project-title .arrow {
@@ -43,9 +52,17 @@
 }
 
 .project-description {
-  margin-top: 0.5rem;
   font-size: 1rem;
   color: #ccc;
   text-align: center;
+  line-height: 1.5;
   overflow: hidden;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: start;
 }
