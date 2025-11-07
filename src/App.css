@@ -1,9 +1,9 @@
-/* Reset and base styles */
+/* Reset and Base */
 body {
   margin: 0;
   font-family: 'Roboto Mono', monospace;
   background: #fff5d3;
-  color: #000000;
+  color: #000;
   overflow-x: hidden;
   scroll-behavior: smooth;
   cursor: url('/images/cursor.png') 16 0, auto;
@@ -21,54 +21,36 @@ a, button {
   align-items: center;
 }
 
-/* Intro Section */
+/* Intro */
 .intro {
   height: 100vh;
-  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  padding: 0 2rem;
 }
 
-/* Intro lines */
 .intro-line {
   font-size: clamp(3rem, 6vw, 6.5rem);
   font-weight: 600;
-  display: inline-block;
   text-align: center;
-  line-height: 1.2;
   margin: 0.2em 0;
 }
 
-.white-text {
-  color: #000;
-}
-
-.green-text {
-  color: #000;
-}
-
-.space {
-  width: 0.5em;
-}
+.white-text { color: #000; }
+.green-text { color: #000; }
 
 .scroll-indicator {
   margin-top: 3rem;
   font-size: 1.5rem;
-  color: #000;
   opacity: 0.7;
 }
 
-/* About Section */
+/* About */
 .about {
   width: 80vw;
   max-width: 900px;
   padding: 4rem 2rem;
-  text-align: left;
-  color: #000;
 }
 
 .about h2 {
@@ -84,7 +66,7 @@ a, button {
   color: #333;
 }
 
-/* Projects Section */
+/* Projects */
 .projects {
   width: 90vw;
   max-width: 1200px;
@@ -95,235 +77,87 @@ a, button {
   font-size: 2.5rem;
   color: #ffb300;
   margin-bottom: 2rem;
-  text-align: center; /* ensures header text is centered */
-}
-
-.project-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-/* Skills Section */
-.skills h2,
-.resume h2,
-.contact h2 {
-  color: #ffb300;
-}
-
-
-/* Navbar */
-.navbar {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: rgba(255, 248, 225, 0.85);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  backdrop-filter: blur(5px);
-}
-
-.navbar a {
-  color: #000;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.navbar a:hover {
-  color: #ffb300;
-}
-
-/* Resume Button */
-.resume-btn {
-  background-color: #000;
-  color: #fff8e1;
-}
-
-.resume-btn:hover {
-  box-shadow: 0 0 10px #ffb300;
-}
-
-/* Apply custom pointer to all interactive or hoverable elements */
-button,
-a,
-[role="button"],
-[onclick],
-input[type="button"],
-input[type="submit"],
-video:hover,
-.clickable {
-  cursor: url('/images/pointer.png') 16 0, pointer !important;
-}
-
-/* Ensure custom cursor applies inside Skills section */
-.skills,
-.skills * {
-  cursor: url('/images/cursor.png') 16 0, auto !important;
-}/* Reset and base styles */
-body {
-  margin: 0;
-  font-family: 'Roboto Mono', monospace;
-  background: #fff5d3;
-  color: #000000;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  cursor: url('/images/cursor.png') 16 0, auto;
-}
-
-a, button {
-  cursor: url('/images/pointer.png') 16 0, pointer;
-}
-
-.container {
-  min-height: 200vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Intro Section */
-.intro {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  padding: 0 2rem;
-}
-
-/* Intro lines */
-.intro-line {
-  font-size: clamp(3rem, 6vw, 6.5rem);
-  font-weight: 600;
-  display: inline-block;
-  text-align: center;
-  line-height: 1.2;
-  margin: 0.2em 0;
-}
-
-.white-text {
-  color: #000;
-}
-
-.green-text {
-  color: #000;
-}
-
-.space {
-  width: 0.5em;
-}
-
-.scroll-indicator {
-  margin-top: 3rem;
-  font-size: 1.5rem;
-  color: #000;
-  opacity: 0.7;
-}
-
-/* About Section */
-.about {
-  width: 80vw;
-  max-width: 900px;
-  padding: 4rem 2rem;
-  text-align: left;
-  color: #000;
-}
-
-.about h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #ffb300;
   text-align: center;
 }
 
-.about p {
-  font-size: 1.3rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-/* Projects Section */
-.projects {
-  width: 90vw;
-  max-width: 1200px;
-  padding: 4rem 2rem;
-}
-
-.projects h2 {
-  font-size: 2.5rem;
-  color: #ffb300;
-  margin-bottom: 2rem;
-  text-align: center; /* ensures header text is centered */
-}
-
-.project-grid {
+/* Carousel Layout */
+.project-carousel {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-/* Skills Section */
-.skills h2,
-.resume h2,
-.contact h2 {
-  color: #ffb300;
+.carousel-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  position: relative;
+  overflow: visible;
+  height: 480px;
 }
 
-
-/* Navbar */
-.navbar {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: rgba(255, 248, 225, 0.85);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  backdrop-filter: blur(5px);
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.6s ease;
 }
 
-.navbar a {
-  color: #000;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.3s;
+/* Arrow Buttons */
+.nav-button {
+  background: rgba(255, 179, 0, 0.85); /* warm golden glass tone */
+  border: 2px solid rgba(255, 255, 255, 0.7); /* soft white border */
+  color: #fff;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.15);
+  z-index: 100;
+  position: relative;
+  pointer-events: auto;
+  cursor: pointer;
+  outline: none; /* removes default blue outline entirely */
 }
 
-.navbar a:hover {
-  color: #ffb300;
+/* Make sure browsers never show the blue outline */
+.nav-button:focus,
+.nav-button:active {
+  outline: none !important;
+  border: 2px solid rgba(255, 255, 255, 0.9); /* slightly brighter border */
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Resume Button */
-.resume-btn {
-  background-color: #000;
-  color: #fff8e1;
+/* Hover effect: lift and glow */
+.nav-button:hover {
+  background: rgba(255, 204, 51, 0.9);
+  transform: scale(1.1) translateY(-2px);
+  border: 2px solid #fff;
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.6),
+    0 4px 25px rgba(0, 0, 0, 0.3);
 }
 
-.resume-btn:hover {
-  box-shadow: 0 0 10px #ffb300;
+/* Spacing between buttons */
+.nav-button.left {
+  margin-right: 1rem;
 }
 
-/* Apply custom pointer to all interactive or hoverable elements */
-button,
-a,
-[role="button"],
-[onclick],
-input[type="button"],
-input[type="submit"],
-video:hover,
-.clickable {
-  cursor: url('/images/pointer.png') 16 0, pointer !important;
+.nav-button.right {
+  margin-left: 1rem;
 }
 
-/* Ensure custom cursor applies inside Skills section */
-.skills,
-.skills * {
-  cursor: url('/images/cursor.png') 16 0, auto !important;
+.nav-button {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }

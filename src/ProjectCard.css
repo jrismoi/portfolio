@@ -1,68 +1,41 @@
 .project-card {
-  width: 300px;
-  margin: 0; /* Remove margin since grid gap handles spacing */
+  width: 320px;
+  height: 460px;
+  background: #81685b;
+  border-radius: 15px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  background: #81685b;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  justify-content: flex-start;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .project-video {
   width: 100%;
+  height: 200px;
   border-radius: 10px;
   object-fit: cover;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-video:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3),
-              0 0 40px rgba(255, 255, 255, 0.2);
+  margin-bottom: 1rem;
 }
 
 .project-title {
-  margin-top: 0.5rem;
-  font-size: 1.2rem;
-  color: #ffffff;
-  text-align: center;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  transition: color 0.3s ease;
-}
-
-.project-title:hover {
-  color: #ffb300; /* Optional: Add hover color change */
-}
-
-.project-title .arrow {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.project-title:hover .arrow {
-  transform: rotate(15deg);
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 0.5rem;
 }
 
 .project-description {
   font-size: 1rem;
-  color: #ccc;
-  text-align: center;
+  color: #eee;
   line-height: 1.5;
   overflow: hidden;
-}
-
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  justify-items: center;
-  align-items: start;
 }
