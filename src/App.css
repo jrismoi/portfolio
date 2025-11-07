@@ -106,14 +106,16 @@ a, button {
 }
 
 /* Arrow Buttons */
+/* Arrow Buttons */
 .nav-button {
+  all: unset; /* removes all default browser button styles */
   background: rgba(255, 179, 0, 0.85); /* warm golden glass tone */
   border: 2px solid rgba(255, 255, 255, 0.7); /* soft white border */
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 2rem; /* slightly larger for balance */
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,20 +127,12 @@ a, button {
   position: relative;
   pointer-events: auto;
   cursor: pointer;
-  outline: none; /* removes default blue outline entirely */
+  outline: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Make sure browsers never show the blue outline */
-.nav-button:focus,
-.nav-button:active {
-  outline: none !important;
-  border: 2px solid rgba(255, 255, 255, 0.9); /* slightly brighter border */
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* Hover effect: lift and glow */
+/* Hover + active effects */
 .nav-button:hover {
   background: rgba(255, 204, 51, 0.9);
   transform: scale(1.1) translateY(-2px);
@@ -148,16 +142,26 @@ a, button {
     0 4px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Spacing between buttons */
+.nav-button:active {
+  transform: scale(0.95);
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.4),
+    0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Remove focus ring entirely */
+.nav-button:focus {
+  outline: none !important;
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.4),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Spacing */
 .nav-button.left {
-  margin-right: 1rem;
+  margin-right: 1.2rem;
 }
 
 .nav-button.right {
-  margin-left: 1rem;
-}
-
-.nav-button {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  margin-left: 1.2rem;
 }
