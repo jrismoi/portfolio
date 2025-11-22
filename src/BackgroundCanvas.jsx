@@ -64,8 +64,8 @@ const BackgroundCanvas = () => {
 
     // Function to draw a 5-pointed star
     const drawStar = (cx, cy, outerRadius, innerRadius) => {
-      ctx.fillStyle = '#8B4513'; // Brown color
-      ctx.strokeStyle = '#654321'; // Darker brown outline
+      ctx.fillStyle = '#562a0bff'; // Brown color
+      ctx.strokeStyle = '#523518ff'; // Darker brown outline
       ctx.lineWidth = 1;
       
       ctx.beginPath();

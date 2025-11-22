@@ -42,6 +42,11 @@ function App() {
         "An 8-bit retro game testing whether absolute pitch can be 'trained.' Players match musical pitches to screen positions. Built with JavaScript and live servers.",
     },
     {
+      videoSrc: "/videos/vr-proj.mp4",
+      title: "VR Scuba Simulator",
+      description: "Built in Unity. Has plenty of features such as menu that gets brought up with hand signals. Features such as arrow with navigation showing up in user interface and a keyboard to 'call' crewmates.",
+    },
+    {
       videoSrc: "/videos/app-vid.mp4",
       title: "Robust Gesture iOS App",
       description:
@@ -97,7 +102,7 @@ function App() {
         <h2>About Me</h2>
         <p>
           I am a fourth-year at the University of Chicago pursuing Computer Science and Cognitive
-          Science, passionate about UI/UX design and creative interactive systems. Here’s what I’ve
+          Science, passionate about UI/UX design and creative interactive systems. Here's what I've
           worked on!
         </p>
       </section>
@@ -114,10 +119,25 @@ function App() {
             {projects.map((project, index) => {
               const offset = index - currentIndex;
               const isActive = offset === 0;
+              
+              // Show cards in range: left (-1), center (0), right (1)
+              // Also handle wrapping for infinite scroll effect
+              let displayOffset = offset;
+              
+              // Wrap around logic for seamless infinite scroll
+              if (offset < -1) {
+                displayOffset = offset + projects.length;
+              } else if (offset > 1) {
+                displayOffset = offset - projects.length;
+              }
+              
+              const isVisible = Math.abs(displayOffset) <= 1;
+              
               const style = {
-                transform: `translateX(${offset * 360}px) scale(${isActive ? 1 : 0.85})`,
-                opacity: isActive ? 1 : 0.4,
+                transform: `translateX(${displayOffset * 420}px) scale(${isActive ? 1 : 0.85})`,
+                opacity: isActive ? 1 : 0.5,
                 zIndex: isActive ? 10 : 1,
+                pointerEvents: isActive ? 'auto' : 'none',
               };
 
               return (
@@ -125,7 +145,8 @@ function App() {
                   key={index}
                   className="carousel-item"
                   animate={style}
-                  transition={{ type: "spring", stiffness: 80, damping: 15 }}
+                  transition={{ type: "spring", stiffness: 70, damping: 20 }}
+                  style={{ display: isVisible ? 'block' : 'none' }}
                 >
                   <ProjectCard
                     videoSrc={project.videoSrc}

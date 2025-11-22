@@ -19,6 +19,7 @@ a, button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 }
 
 /* Intro */
@@ -68,9 +69,13 @@ a, button {
 
 /* Projects */
 .projects {
-  width: 90vw;
-  max-width: 1200px;
+  width: 100vw;
+  max-width: 100%;
   padding: 4rem 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .projects h2 {
@@ -86,29 +91,33 @@ a, button {
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1400px;
 }
 
 .carousel-track {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 400px;
+  width: 380px;
   position: relative;
   overflow: visible;
-  height: 480px;
+  height: 600px;
+  margin: 0 auto;
 }
 
 .carousel-item {
   position: absolute;
   top: 0;
-  left: 0;
-  transition: all 0.6s ease;
+  left: 50%;
+  margin-left: -180px; /* Half of card width (360px / 2) to center */
 }
 
 /* Arrow Buttons */
 .nav-button {
-  background: rgba(255, 179, 0, 0.85); /* warm golden glass tone */
-  border: 2px solid rgba(255, 255, 255, 0.7); /* soft white border */
+  background: rgba(255, 179, 0, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.7);
   color: #fff;
   font-size: 1.8rem;
   border-radius: 50%;
@@ -125,20 +134,19 @@ a, button {
   position: relative;
   pointer-events: auto;
   cursor: pointer;
-  outline: none; /* removes default blue outline entirely */
+  outline: none;
+  flex-shrink: 0;
 }
 
-/* Make sure browsers never show the blue outline */
 .nav-button:focus,
 .nav-button:active {
   outline: none !important;
-  border: 2px solid rgba(255, 255, 255, 0.9); /* slightly brighter border */
+  border: 2px solid rgba(255, 255, 255, 0.9);
   box-shadow:
     0 0 20px rgba(255, 255, 255, 0.5),
     0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Hover effect: lift and glow */
 .nav-button:hover {
   background: rgba(255, 204, 51, 0.9);
   transform: scale(1.1) translateY(-2px);
@@ -148,16 +156,56 @@ a, button {
     0 4px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Spacing between buttons */
 .nav-button.left {
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 .nav-button.right {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 
 .nav-button {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 1200px) {
+  .carousel-track {
+    width: 350px;
+    height: 580px;
+  }
+  
+  .carousel-item {
+    margin-left: -175px; /* 350px / 2 */
+  }
+}
+
+@media (max-width: 768px) {
+  .projects {
+    width: 100vw;
+    padding: 3rem 1rem;
+  }
+
+  .carousel-track {
+    width: 300px;
+    height: 560px;
+  }
+  
+  .carousel-item {
+    margin-left: -150px; /* 300px / 2 */
+  }
+
+  .nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .nav-button.left {
+    margin-right: 1rem;
+  }
+
+  .nav-button.right {
+    margin-left: 1rem;
+  }
 }
