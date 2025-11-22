@@ -15,6 +15,8 @@ function Skills() {
     "Swift",
     "C",
     "SML", 
+    "Unity",
+    "C#",
   ];
 
   return (

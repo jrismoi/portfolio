@@ -177,14 +177,16 @@
 }
 
 .brush-size-btn {
-  padding: 0.3rem 0.8rem;
+  padding: 0.5rem 0.9rem;
   border: 1px solid #ffb300;
   background: white;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-family: 'Roboto Mono', monospace;
   transition: all 0.2s ease;
+  color: #333;
+  font-weight: 500;
 }
 
 .brush-size-btn:hover {
@@ -250,6 +252,11 @@
   .color-swatch {
     width: 28px;
     height: 28px;
+  }
+
+  .brush-size-btn {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
   }
 
   .show-controls-btn {

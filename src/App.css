@@ -93,7 +93,8 @@ a, button {
   position: relative;
   overflow: hidden;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
+  padding: 0 1rem;
 }
 
 .carousel-track {
@@ -114,7 +115,7 @@ a, button {
   margin-left: -180px; /* Half of card width (360px / 2) to center */
 }
 
-/* Arrow Buttons */
+/* Arrow Buttons - Now Circular */
 .nav-button {
   background: rgba(255, 179, 0, 0.85);
   border: 2px solid rgba(255, 255, 255, 0.7);
@@ -123,6 +124,8 @@ a, button {
   border-radius: 50%;
   width: 60px;
   height: 60px;
+  min-width: 60px;
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,6 +139,8 @@ a, button {
   cursor: pointer;
   outline: none;
   flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
 }
 
 .nav-button:focus,
@@ -157,11 +162,11 @@ a, button {
 }
 
 .nav-button.left {
-  margin-right: 2rem;
+  margin-right: 1.5rem;
 }
 
 .nav-button.right {
-  margin-left: 2rem;
+  margin-left: 1.5rem;
 }
 
 .nav-button {
@@ -186,6 +191,10 @@ a, button {
     padding: 3rem 1rem;
   }
 
+  .project-carousel {
+    padding: 0 0.5rem;
+  }
+
   .carousel-track {
     width: 300px;
     height: 560px;
@@ -198,14 +207,16 @@ a, button {
   .nav-button {
     width: 50px;
     height: 50px;
+    min-width: 50px;
+    min-height: 50px;
     font-size: 1.5rem;
   }
 
   .nav-button.left {
-    margin-right: 1rem;
+    margin-right: 0.8rem;
   }
 
   .nav-button.right {
-    margin-left: 1rem;
+    margin-left: 0.8rem;
   }
 }

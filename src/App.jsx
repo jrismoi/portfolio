@@ -74,19 +74,19 @@ function App() {
         <h1 className="intro-line green-text">
           {letters.map((char, i) => (
             <motion.span
-              key={i}
-              style={{
+                key={i}
+                style={{
                 display: "inline-block",
                 x: xTransforms[i],
                 y: yTransforms[i],
                 rotate: rotateTransforms[i],
                 opacity,
-              }}
-              className={char === " " ? "space" : ""}
+                }}
+                className={char === " " ? "space" : ""}
             >
-              {char}
+                {char === " " ? "\u00A0" : char} {/* non-breaking space */}
             </motion.span>
-          ))}
+            ))}
         </h1>
         <motion.div
           className="scroll-indicator"
