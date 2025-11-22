@@ -36,24 +36,24 @@ function App() {
   // Project data
   const projects = [
     {
-      videoSrc: "/videos/game-vid.mp4",
+      videoSrc: `${import.meta.env.BASE_URL}videos/game-vid.mp4`,
       title: "8-bit Music Game",
       description:
         "An 8-bit retro game testing whether absolute pitch can be 'trained.' Players match musical pitches to screen positions. Built with JavaScript and live servers.",
     },
     {
-      videoSrc: "/videos/vr-proj.mp4",
+      videoSrc: `${import.meta.env.BASE_URL}videos/vr-proj.mp4`,
       title: "VR Scuba Simulator",
       description: "Built in Unity. Has plenty of features such as menu that gets brought up with hand signals. Features such as arrow with navigation showing up in user interface and a keyboard to 'call' crewmates.",
     },
     {
-      videoSrc: "/videos/app-vid.mp4",
+      videoSrc: `${import.meta.env.BASE_URL}videos/app-vid.mp4`,
       title: "Robust Gesture iOS App",
       description:
         "An iPhone app comparing shake and tilt gesture robustness. Outputs accelerometer and gyroscope data as CSV. Built with Swift and SwiftUI.",
     },
     {
-      videoSrc: "/videos/calculator.mp4",
+      videoSrc: `${import.meta.env.BASE_URL}videos/calculator.mp4`,
       title: "Calculator App",
       description: "A simple, responsive calculator app for desktop and mobile devices.",
     },
