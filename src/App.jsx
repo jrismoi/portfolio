@@ -11,7 +11,7 @@ import "./App.css";
 
 function App() {
   const { scrollYProgress } = useScroll();
-  const name = "Miguel Orellana"; // ensure normal space
+  const name = "Miguel Orellana";
   const letters = Array.from(name);
 
   // Randomized letter transforms
@@ -79,7 +79,7 @@ function App() {
               }}
               className={char === " " ? "space" : ""}
             >
-              {char === " " ? "\u00A0" : char} {/* ensures space is visible */}
+              {char}
             </motion.span>
           ))}
         </h1>
