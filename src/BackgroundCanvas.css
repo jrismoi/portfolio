@@ -1,4 +1,4 @@
-/* BackgroundCanvas.css */
+/* src/BackgroundCanvas.css */
 
 .background-canvas {
   position: absolute;
@@ -6,8 +6,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2; /* Increased from 0 to 2 to be above stars */
-  pointer-events: none; /* needed for painting */
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Border Stars Canvas - Now scrolls with page content */
+.border-stars-canvas {
+  position: absolute; /* Changed from fixed to absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Stars Container */
@@ -17,7 +28,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Stars are now below canvas */
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -28,7 +39,7 @@
   height: 300px;
   opacity: 0.8;
   pointer-events: none;
-  transition: transform 0.05s ease; /* Very short transition for snappy effect */
+  transition: transform 0.05s ease;
 }
 
 /* Frame 1 - Original positions with different rotations */
@@ -58,25 +69,25 @@
 
 /* Frame 2 - Slightly different rotations */
 .funky-star.top-left.frame-2 {
-  transform: rotate(45deg); /* +10 degrees from original */
+  transform: rotate(45deg);
 }
 
 .funky-star.top-right.frame-2 {
-  transform: rotate(-40deg); /* -10 degrees from original */
+  transform: rotate(-40deg);
 }
 
 .funky-star.bottom-left.frame-2 {
-  transform: rotate(-45deg); /* +10 degrees from original */
+  transform: rotate(-45deg);
 }
 
 .funky-star.bottom-right.frame-2 {
-  transform: rotate(35deg); /* +10 degrees from original */
+  transform: rotate(35deg);
 }
 
 .drawing-container {
   position: fixed;
   bottom: 20px;
-  right: 20px; /* toolbar on right edge */
+  right: 20px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -101,7 +112,7 @@
 .drawing-container.collapsed .drawing-controls {
   opacity: 0;
   transform: scale(0.5);
-  pointer-events: none; /* prevent clicks when collapsed */
+  pointer-events: none;
 }
 
 .drawing-container.expanded .drawing-controls {
@@ -139,14 +150,14 @@
 }
 
 .color-swatch {
-  width: 36px;       /* exact width */
-  height: 36px;      /* exact height */
-  border-radius: 50%; /* perfect circle */
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;
-  padding: 0;        
-  box-sizing: border-box; /* include border in dimensions */
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .color-swatch:hover {
@@ -204,10 +215,10 @@
 }
 
 .show-controls-btn {
-  width: auto;  
+  width: auto;
   height: 50px;
   padding: 0 1rem;
-  border-radius: 25px; /* pill shape */
+  border-radius: 25px;
   background: #ffb300;
   color: white;
   border: none;

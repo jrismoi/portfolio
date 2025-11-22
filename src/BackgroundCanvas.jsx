@@ -53,17 +53,44 @@ const BackgroundCanvas = () => {
     };
   }, []);
 
-  // --- Fixed Border Stars that scroll with content ---
+  // --- Border Stars Canvas (scrolls with page) ---
   useEffect(() => {
     const borderCanvas = borderCanvasRef.current;
     if (!borderCanvas) return;
 
     const ctx = borderCanvas.getContext('2d');
-    const starImg = new Image();
-    starImg.src = '/images/tiny-star.png';
-
     let currentWidth = 0;
     let currentHeight = 0;
+
+    // Function to draw a 5-pointed star
+    const drawStar = (cx, cy, outerRadius, innerRadius) => {
+      ctx.fillStyle = '#8B4513'; // Brown color
+      ctx.strokeStyle = '#654321'; // Darker brown outline
+      ctx.lineWidth = 1;
+      
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        // Outer point
+        const outerAngle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
+        const outerX = cx + Math.cos(outerAngle) * outerRadius;
+        const outerY = cy + Math.sin(outerAngle) * outerRadius;
+        
+        if (i === 0) {
+          ctx.moveTo(outerX, outerY);
+        } else {
+          ctx.lineTo(outerX, outerY);
+        }
+        
+        // Inner point
+        const innerAngle = ((i * 2 + 1) * Math.PI) / 5 - Math.PI / 2;
+        const innerX = cx + Math.cos(innerAngle) * innerRadius;
+        const innerY = cy + Math.sin(innerAngle) * innerRadius;
+        ctx.lineTo(innerX, innerY);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    };
 
     const drawBorderStars = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -81,37 +108,56 @@ const BackgroundCanvas = () => {
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, borderCanvas.width, borderCanvas.height);
-
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const starSize = 20;
-      const canvasWidth = width;
-      const canvasHeight = height;
+      const spacing = 25; // Space between stars
+      const outerRadius = 6;
+      const innerRadius = 3;
+      const margin = 12;
 
-      // Top & bottom borders
-      for (let i = 0; i <= canvasWidth / starSize; i++) {
-        const x = i * starSize;
-        ctx.drawImage(starImg, x, 0, starSize, starSize); // top
-        ctx.drawImage(starImg, x, canvasHeight - starSize, starSize, starSize); // bottom
+      // Top border - entire width including right corner
+      for (let i = 0; i <= Math.ceil(width / spacing) + 1; i++) {
+        const x = i * spacing + margin;
+        if (x <= width - margin) {
+          drawStar(x, margin, outerRadius, innerRadius);
+        }
       }
 
-      // Left & right borders
-      for (let i = 0; i <= canvasHeight / starSize; i++) {
-        const y = i * starSize;
-        ctx.drawImage(starImg, 0, y, starSize, starSize); // left
-        ctx.drawImage(starImg, canvasWidth - starSize, y, starSize, starSize); // right
+      // Bottom border - entire width including right corner
+      for (let i = 0; i <= Math.ceil(width / spacing) + 1; i++) {
+        const x = i * spacing + margin;
+        if (x <= width - margin) {
+          drawStar(x, height - margin, outerRadius, innerRadius);
+        }
+      }
+
+      // Left border - entire height (skip corners to avoid double-drawing)
+      for (let i = 1; i < Math.ceil(height / spacing); i++) {
+        const y = i * spacing + margin;
+        if (y > spacing && y < height - spacing) {
+          drawStar(margin, y, outerRadius, innerRadius);
+        }
+      }
+
+      // Right border - entire height (skip corners to avoid double-drawing)
+      for (let i = 1; i < Math.ceil(height / spacing); i++) {
+        const y = i * spacing + margin;
+        if (y > spacing && y < height - spacing) {
+          drawStar(width - margin, y, outerRadius, innerRadius);
+        }
       }
     };
 
-    const handleResize = () => drawBorderStars();
-
-    starImg.onload = drawBorderStars;
+    const handleResize = () => {
+      requestAnimationFrame(drawBorderStars);
+    };
 
     const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(document.body);
     resizeObserver.observe(document.documentElement);
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleResize);
 
     const mutationObserver = new MutationObserver(handleResize);
     mutationObserver.observe(document.body, {
@@ -121,12 +167,18 @@ const BackgroundCanvas = () => {
       attributeFilter: ['style', 'class']
     });
 
-    drawBorderStars();
+    // Initial draw
+    requestAnimationFrame(drawBorderStars);
+
+    // Redraw periodically to catch any missed updates
+    const interval = setInterval(handleResize, 500);
 
     return () => {
       resizeObserver.disconnect();
       mutationObserver.disconnect();
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
+      clearInterval(interval);
     };
   }, []);
 
@@ -187,13 +239,6 @@ const BackgroundCanvas = () => {
       <canvas
         ref={borderCanvasRef}
         className="border-stars-canvas"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
       />
       <canvas
         ref={canvasRef}
