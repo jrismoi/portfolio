@@ -22,6 +22,14 @@ a, button {
   overflow-x: hidden;
 }
 
+/* Custom cursor for BackgroundCanvas elements */
+.background-canvas,
+.border-stars-canvas,
+.stars-container,
+.funky-star {
+  cursor: url('/images/cursor.png') 16 0, auto !important;
+}
+
 /* Intro */
 .intro {
   height: 100vh;
