@@ -1,3 +1,4 @@
+// src/BackgroundCanvas.jsx
 import React, { useRef, useEffect, useState } from 'react';
 import './BackgroundCanvas.css';
 
@@ -56,7 +57,7 @@ const BackgroundCanvas = () => {
   useEffect(() => {
     const borderCanvas = borderCanvasRef.current;
     if (!borderCanvas) return;
-    
+
     const ctx = borderCanvas.getContext('2d');
     const starImg = new Image();
     starImg.src = '/images/tiny-star.png';
@@ -65,84 +66,53 @@ const BackgroundCanvas = () => {
     let currentHeight = 0;
 
     const drawBorderStars = () => {
-      // Use document scroll dimensions to cover entire page content
-      const width = document.documentElement.scrollWidth;
-      const height = document.documentElement.scrollHeight;
-      
-      // Only redraw if size actually changed
+      const dpr = window.devicePixelRatio || 1;
+      const width = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+      const height = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+
       if (width === currentWidth && height === currentHeight) return;
-      
       currentWidth = width;
       currentHeight = height;
-      const dpr = window.devicePixelRatio || 1;
 
-      // Set canvas physical size to cover entire document
       borderCanvas.width = Math.floor(width * dpr);
       borderCanvas.height = Math.floor(height * dpr);
       borderCanvas.style.width = `${width}px`;
       borderCanvas.style.height = `${height}px`;
 
-      // Clear entire canvas
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, borderCanvas.width, borderCanvas.height);
-      
-      // Set scale for high DPI displays
+
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const starSize = 20;
-      
-      // Draw top border - all the way across
-      const topStars = Math.ceil(width / starSize);
-      for (let i = 0; i <= topStars; i++) {
+      const canvasWidth = width;
+      const canvasHeight = height;
+
+      // Top & bottom borders
+      for (let i = 0; i <= canvasWidth / starSize; i++) {
         const x = i * starSize;
-        if (x <= width) {
-          ctx.drawImage(starImg, x, 0, starSize, starSize);
-        }
+        ctx.drawImage(starImg, x, 0, starSize, starSize); // top
+        ctx.drawImage(starImg, x, canvasHeight - starSize, starSize, starSize); // bottom
       }
 
-      // Draw bottom border - all the way across
-      const bottomStars = Math.ceil(width / starSize);
-      for (let i = 0; i <= bottomStars; i++) {
-        const x = i * starSize;
-        if (x <= width) {
-          ctx.drawImage(starImg, x, height - starSize, starSize, starSize);
-        }
-      }
-
-      // Draw left border - all the way down
-      const leftStars = Math.ceil(height / starSize);
-      for (let i = 0; i <= leftStars; i++) {
+      // Left & right borders
+      for (let i = 0; i <= canvasHeight / starSize; i++) {
         const y = i * starSize;
-        if (y <= height) {
-          ctx.drawImage(starImg, 0, y, starSize, starSize);
-        }
-      }
-
-      // Draw right border - all the way down
-      const rightStars = Math.ceil(height / starSize);
-      for (let i = 0; i <= rightStars; i++) {
-        const y = i * starSize;
-        if (y <= height) {
-          ctx.drawImage(starImg, width - starSize, y, starSize, starSize);
-        }
+        ctx.drawImage(starImg, 0, y, starSize, starSize); // left
+        ctx.drawImage(starImg, canvasWidth - starSize, y, starSize, starSize); // right
       }
     };
 
-    const handleResize = () => {
-      drawBorderStars();
-    };
+    const handleResize = () => drawBorderStars();
 
-    // Load image and draw initial border
     starImg.onload = drawBorderStars;
 
-    // Set up observers and listeners
     const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(document.body);
     resizeObserver.observe(document.documentElement);
 
     window.addEventListener('resize', handleResize);
-    
-    // Also redraw when content changes (like images loading, dynamic content)
+
     const mutationObserver = new MutationObserver(handleResize);
     mutationObserver.observe(document.body, {
       childList: true,
@@ -151,7 +121,6 @@ const BackgroundCanvas = () => {
       attributeFilter: ['style', 'class']
     });
 
-    // Initial draw
     drawBorderStars();
 
     return () => {
@@ -166,9 +135,7 @@ const BackgroundCanvas = () => {
     const isTouch = !!e.touches;
     const clientX = isTouch ? e.touches[0].clientX : e.clientX;
     const clientY = isTouch ? e.touches[0].clientY : e.clientY;
-    const x = (clientX || 0) + window.scrollX;
-    const y = (clientY || 0) + window.scrollY;
-    return { x, y };
+    return { x: (clientX || 0) + window.scrollX, y: (clientY || 0) + window.scrollY };
   };
 
   const startDrawing = (e) => {
@@ -197,9 +164,7 @@ const BackgroundCanvas = () => {
   const stopDrawing = () => {
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext('2d');
-    try {
-      ctx.closePath();
-    } catch {}
+    try { ctx.closePath(); } catch {}
     setIsDrawing(false);
   };
 
@@ -219,20 +184,17 @@ const BackgroundCanvas = () => {
 
   return (
     <>
-      {/* Static star border - ABSOLUTE POSITION to scroll with content */}
       <canvas
         ref={borderCanvasRef}
         className="border-stars-canvas"
         style={{
-          position: 'absolute', // Changed back to absolute
+          position: 'absolute',
           top: 0,
           left: 0,
           zIndex: 0,
           pointerEvents: 'none',
         }}
       />
-
-      {/* Paint layer */}
       <canvas
         ref={canvasRef}
         className="background-canvas"
@@ -246,7 +208,6 @@ const BackgroundCanvas = () => {
         onTouchEnd={stopDrawing}
       />
 
-      {/* Flipping funky stars */}
       <div className="stars-container">
         <img
           src="/images/funkystar.png"
@@ -270,7 +231,6 @@ const BackgroundCanvas = () => {
         />
       </div>
 
-      {/* Drawing controls */}
       <div className={`drawing-container ${showControls ? 'expanded' : 'collapsed'}`}>
         {showControls ? (
           <div className="drawing-controls">
